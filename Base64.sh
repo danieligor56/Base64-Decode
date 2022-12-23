@@ -4,44 +4,42 @@
 #DANIEL IGOR 12-10-22 
 #
 #
-#
+ESC1(){
+read -p "Insira o texto criptografado: " CRIP1
+echo
+echo $CRIP1 | base64 -d
+echo
+}
+ESC2(){
+read -p "Insira o texto para criptografar: " CRIP2
+echo
+echo $CRIP2 | base64
+echo
+}
 
-touch conect.out
+
 echo
 echo "DECODIFICADOR BASE64 | ATENÇÃO, NÃO USAR ATALHOS DO TECLADO PARA COPIAR/COLAR..."
 echo "*** *** *** *** *** *** *** ***"
 echo
-read -p " Texto criptografado: " TXT1
+echo "Digite a opção desejada:"
 echo
-sleep 1 && echo Descriptografando...
-echo TXT1 | base64 -a > conect.out
+echo " 1 - Descriptografar."
+echo " 2 - Criptografar."
 echo
-cat conect.out 
+read -p "-" OPC1
 echo
-#MENU DE OPÇÃO -- 
-echo 
-echo
-echo "(1) EDITAR ARQUIVO."
-echo "(2) Definir base para arquivo."
-echo "(3) Definir base como localhost."
-echo "(4) Definir base para arquivo. "
-echo "(5) Sair do programa."
-echo
-read -p "Escolha a opção:" OPC1
-echo
-#MENU DE OPÇÃO. 
-case $OPC1 in
-	1) 
-                EDITAARQ
+case $OPC1 in 
+	1)
+		ESC1
 		;;
-	2)       
-		DEFBASE
-		;;	
-
-	5)
-		exit
+	2)	ESC2
+		;;
+	*)
+		echo "Opção invalida."
 		;;
 esac
+
 #VALIDAÇÃO DE NOVA CONSULTA. 
 echo
 read -p "Deseja fazer uma nova consulta ? " OPC3
