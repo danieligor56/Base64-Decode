@@ -2,87 +2,21 @@
 
 # DESCRIPTOGRAFADOR BASE 64 | RECEBE UMA VALOR CODIFICADO COM BASE64 E O DESCODIFICA.
 #DANIEL IGOR 12-10-22 
+#
+#
+#
 
-#ATENÇÃO, DEIXAR PASTA NO MESMO LOCAL DO SCRIPT.
-#CASO O ARQUIVO NÃO EXISTA O SISTEMA IRÁ CRIAR AUTOMATICAMENTE.
-
-# Aqui não por a(s) bibliotecas dentro de uma função, criar 
-#VERIFICAÇÃO SE O ARQUIVO EXISTE - (conect.out)
-if  test ! -e /home/danieligor/conect.out
-then
-        echo "Criando arquivo"
-	sleep 1
-	touch conect.out
-	echo "Arquivo criado, prosseguindo..."
-	echo
-fi
-
-#EDITA ARQUIVO VIA NANO. (OPÇÃO 1)
-EDITAARQ(){
-
-	nano conect.out
-}
-
-#DEFININDO BASE - FUNCTION PARA DEFINIR BASE. (OPÇÃO 2) 
-DEFBASE(){
-read -p "Insira o endereço da base:" OPCBASE
-                echo
-                tail conect.out |sed 's/localhost/'$OPCBASE'/' conect.out
-		echo
-		read -p "O endereço está correto ? (Ss,Nn):" OPC2
-		case $OPC2 in
-			[S,s])
-				echo "Criptografando..."
-				echo
-				cat conect.out |base64
-				;;	
-			[N,n])
-				read -p "Insira o endereço correto para base:" OPCBASE
-                                tail conect.out |sed 's/localhost/'$OPCBASE'/' conect.out
-				read -p "O endereço está correto ? (Ss,Nn):" OPC2
-					if [$OPC2 = S -o $OPC2 = s]
-					then
-						echo "Script OK"
-					fi
-						;;
-
-
-					esac
-}
-DEFHOST(){
-                tail conect.out |sed 's/localhost/'$OPCBASE'/' conect.out
-                echo
-                read -p "O endereço está correto ? (Ss,Nn):" OPC2
-                case $OPC2 in
-                        [S,s])
-                                echo "Criptografando..."
-                                echo
-                                cat conect.out |base64
-                                ;;
-                        [N,n])
-                                read -p "Insira o endereço correto para base:" OPCBASE
-                                tail conect.out |sed 's/localhost/'$OPCBASE'/' conect.out
-                                read -p "O endereço está correto ? (Ss,Nn):" OPC2
-                                        if [$OPC2 = S -o $OPC2 = s]
-                                        then
-                                                echo "Script OK"
-                                        fi
-                                                ;;
-
-
-                                        esac
-
-
-
-				}
+touch conect.out
+echo
 echo "DECODIFICADOR BASE64 | ATENÇÃO, NÃO USAR ATALHOS DO TECLADO PARA COPIAR/COLAR..."
-echo
 echo "*** *** *** *** *** *** *** ***"
-read -p "Conect string: " Cripto1
 echo
-echo "Descriptogranfando: " ; sleep 2
-echo "$Cripto1"| base64 -d > conect.out
-cat conect.out
+read -p " Texto criptografado: " TXT1
+echo
+sleep 1 && echo Descriptografando...
+echo TXT1 | base64 -a > conect.out
+echo
+cat conect.out 
 echo
 #MENU DE OPÇÃO -- 
 echo 
