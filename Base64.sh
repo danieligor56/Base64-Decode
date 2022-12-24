@@ -1,19 +1,68 @@
 #!/bin/bash
 
-# DESCRIPTOGRAFADOR BASE 64 | RECEBE UMA VALOR CODIFICADO COM BASE64 E O DESCODIFICA.
-#DANIEL IGOR 12-10-22 
+
+#
+#ENCODO AND DECODE BASE64
+#DANIEL IGOR
 #
 #
+
+
+
+which xclip >> /dev/null
+VAL1=$?
+
+if [ $VAL1 != 0 ]
+then
+	echo "Instalando componentes necessários"
+	sudo apt-get install xclip >> /dev/null
+	sleep 1
+fi
+
+
+ERR1(){
+while  [ $OPC1 != 1 -o $OPC1 != 2 ]
+do
+read -p  "Opção invalida, por favor insira uma opção válida: " $OPC1
+return
+done
+
+}
+
+OPCW3(){
+clear
+source Base64.sh
+_Base64.sh
+}
+OPCW2(){
+echo
+touch cripto.txt;echo $CRIPT >> cripto.txt
+echo "Arquivo salvo em $PWD / cripto.txt "
+echo
+}
+
+OPCW1(){
+echo $CRIPT | xclip -sel clipboard
+sleep 1;
+echo
+echo "Arquivo enviado para área de transferência..."
+echo
+exit
+}
+
 ESC1(){
 read -p "Insira o texto criptografado: " CRIP1
 echo
-echo $CRIP1 | base64 -d
+CRIPT=$(echo $CRIP1 | base64 -d)
+echo $CRIPT
 echo
 }
+
 ESC2(){
-read -p "Insira o texto para criptografar: " CRIP2
+read -p "Insira o texto para criptografar: " CRIP1
 echo
-echo $CRIP2 | base64
+CRIPT=$(echo $CRIP1 | base64)
+echo $CRIPT
 echo
 }
 
@@ -36,25 +85,38 @@ case $OPC1 in
 	2)	ESC2
 		;;
 	*)
-		echo "Opção invalida."
+		ERR1
 		;;
 esac
-
-#VALIDAÇÃO DE NOVA CONSULTA. 
 echo
-read -p "Deseja fazer uma nova consulta ? " OPC3
-case $OPC3 in 
-	
-	[S,s])
-	 	sleep 2
-		clear
-		source Base64.sh
-	_Base64.sh
-	;;
-	[N,n])
+echo "Escolha a opção desejada:"
+echo
+echo " 1 - Copiar para área de trasferência."
+echo " 2 - Salva em arquivo TXT."
+echo " 3 - FAZER NOVA CONSULTA."
+echo " 4 - Sair."
+echo
 
-	exit
-	;;
-esac
+read -p "-" OPC
+
+case $OPC in
+	1)
+		OPCW1
+		;;
+	2)	
+		OPCW2
+		;;   
+         
+
+	3)
+		OPCW3
+		;;
+	4)
+
+		exit
+		;;
+
+
+	esac
 
 
