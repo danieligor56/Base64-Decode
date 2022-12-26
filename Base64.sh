@@ -1,13 +1,9 @@
 #!/bin/bash
-
-
 #
 #ENCODO AND DECODE BASE64
 #DANIEL IGOR
 #
 #
-
-
 
 which xclip >> /dev/null
 VAL1=$?
@@ -21,11 +17,11 @@ fi
 
 
 ERR1(){
-while  [ $OPC1 != 1 -o $OPC1 != 2 ]
-do
-read -p  "Opção invalida, por favor insira uma opção válida: " $OPC1
-return
-done
+read -p  "Opção invalida, por favor insira uma opção válida: " $OPC1	
+if  [ $OPC1 != 1 -o $OPC1 != 2 ]
+then
+read -p " por favor insira uma opção válida: " $OPC1
+fi
 
 }
 
@@ -35,10 +31,19 @@ source Base64.sh
 _Base64.sh
 }
 OPCW2(){
-echo
-touch cripto.txt;echo $CRIPT >> cripto.txt
+touch cripto.txt;echo $CRIPT > cripto.txt
 echo "Arquivo salvo em $PWD / cripto.txt "
 echo
+read -p "Deseja fazer nova consulta ?(Ss.Nn): " NCONSULT
+if [ $NCONSULT = S -o $NCONSULT = s ]
+then
+        OPCW3
+elif [ $NCONSULT = n -o $NCONSULT = N ]
+then
+        exit
+
+fi
+
 }
 
 OPCW1(){
@@ -47,7 +52,16 @@ sleep 1;
 echo
 echo "Arquivo enviado para área de transferência..."
 echo
-exit
+read -p "Deseja fazer nova consulta ?(Ss.Nn): " NCONSULT
+if [ $NCONSULT = S -o $NCONSULT = s ] 
+then 
+	OPCW3
+elif [ $NCONSULT = n -o $NCONSULT = N ]
+then
+	exit
+
+fi
+
 }
 
 ESC1(){
@@ -66,7 +80,6 @@ echo $CRIPT
 echo
 }
 
-
 echo
 echo "DECODIFICADOR BASE64 | ATENÇÃO, NÃO USAR ATALHOS DO TECLADO PARA COPIAR/COLAR..."
 echo "*** *** *** *** *** *** *** ***"
@@ -84,9 +97,10 @@ case $OPC1 in
 		;;
 	2)	ESC2
 		;;
-	*)
-		ERR1
-		;;
+#	*)
+#		ERR1
+#		exit
+#		;;
 esac
 echo
 echo "Escolha a opção desejada:"
@@ -100,6 +114,7 @@ echo
 read -p "-" OPC
 
 case $OPC in
+	
 	1)
 		OPCW1
 		;;
@@ -118,5 +133,6 @@ case $OPC in
 
 
 	esac
+
 
 
